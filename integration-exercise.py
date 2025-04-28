@@ -2,7 +2,8 @@ import csv
 import requests
 from bs4 import BeautifulSoup
 
-SOURCE_URL = 'https://bitbucket.org/cityhive/jobs/src/master/integration-eng/integration-entryfile.html'
+# SOURCE_URL = 'https://bitbucket.org/cityhive/jobs/src/master/integration-eng/integration-entryfile.html'
+SOURCE_URL = 'https://github.com/florenciacomuzzi/integration-eng-exercise-python/blob/main/integration-entryfile.html'
 
 # 1. Using requests or any other HTTP library, grab the file HTML from: https://bitbucket.org/cityhive/jobs/src/master/integration-eng/integration-entryfile.html
 # 2. Then, parse the URL for the csv file located in the S3 bucket (as part of the script, not by hand)
