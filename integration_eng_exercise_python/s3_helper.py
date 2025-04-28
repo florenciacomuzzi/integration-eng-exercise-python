@@ -76,14 +76,14 @@ class S3Helper(object):
             expiration (int):   Not used, kept for backward compatibility
         """
         key = self._clean_s3_path(key)
-        
+
         # Construct the public S3 URL
         url = f"https://{self.bucket_name}.s3.amazonaws.com/{key}"
 
         # Download using requests
         response = requests.get(url)
         response.raise_for_status()
-        
+
         # Save to file
         with open(dest_path, 'wb') as f:
             f.write(response.content)

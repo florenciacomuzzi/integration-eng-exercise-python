@@ -5,12 +5,13 @@ from integration_eng_exercise_python.utils import transform_url_to_raw
 
 
 def process_line(line):
-  if len(line) > 10:
-    return {
-      'upc': line[0],
-      'price': line[4],
-      'quantity': line[5]
-    }
+    if len(line) > 10:
+        return {
+            'upc': line[0],
+            'price': line[4],
+            'quantity': line[5]
+        }
+
 
 def extract_inventory_object_details(url):
     url = transform_url_to_raw(url)
@@ -25,10 +26,12 @@ def extract_inventory_object_details(url):
     object_div = soup.find(id='object-value')
 
     if not all([bucket_div, region_div, object_div]):
-        raise ValueError("Could not find all required S3 information in the HTML")
+        raise ValueError(
+            "Could not find all required S3 information in the HTML")
 
     bucket = bucket_div.text.strip()
-    region_code = region_div.get('data-region', '')  # Get the actual AWS region code
+    # Get the actual AWS region code
+    region_code = region_div.get('data-region', '')
 
     # Process path segments and separators
     path_parts = []
