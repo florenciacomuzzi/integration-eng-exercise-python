@@ -20,11 +20,37 @@ def process_line(line):
       'quantity': line[5]
     }
 
+
+def fix_nested_elements(html_content):
+    soup = BeautifulSoup(html_content, 'html.parser')
+
+    # Find all elements with class 'path'
+    path_elements = soup.find_all(class_='path')
+
+    # Track elements that need to be fixed
+    elements_to_fix = []
+
+    for element in path_elements:
+        # Check if this element has a parent with the same class
+        parent = element.parent
+        if parent and 'class' in parent.attrs and 'path' in parent.attrs['class']:
+            elements_to_fix.append((parent, element))
+
+    # Fix the nested elements
+    for parent, child in elements_to_fix:
+        # Move the child's content to the parent
+        parent.string = child.string
+        # Remove the child element
+        child.decompose()
+
+    # return str(soup)
+    return soup
+
 def get_html(url):
     response = requests.get(url)
     response.raise_for_status()  # Raise an exception for bad status codes
     
-    soup = BeautifulSoup(response.text, 'html.parser')
+    soup = fix_nested_elements(response.text)
     
     # Extract S3 bucket information
     bucket_div = soup.find(id='bucket-value')
@@ -37,7 +63,7 @@ def get_html(url):
     bucket = bucket_div.text.strip()
     region_code = region_div.get('data-region', '')  # Get the actual AWS region code
     object_path = object_div.text.strip()
-    
+
     # Clean up the object path by removing the path separators and extra whitespace
     object_path = ' '.join(object_path.split())
     
