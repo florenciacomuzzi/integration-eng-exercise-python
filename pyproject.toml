@@ -2,7 +2,7 @@
 name = "integration-eng-exercise-python"
 version = "0.1.0"
 description = ""
-authors = ["Florencia Comuzzi <florenciabsalinas@gmail.com>"]
+authors = ["Florencia Comuzzi <florenciacomuzzi@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
