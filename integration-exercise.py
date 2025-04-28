@@ -24,3 +24,5 @@ if __name__ == '__main__':
             l = process_line(line)
             if l:
                 print(l)
+
+    print("Finished!")
